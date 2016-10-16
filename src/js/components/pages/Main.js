@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import CurrentLocation from '../../components/currentLocation/CurrentLocation';
+import WeatherInfo 	from '../../components/weatherInfo/WeatherInfo';
+import AddCity 		from '../../components/cities/AddCity';
+import CitiesList 	from '../../components/cities/CitiesList';
 
-//import * as asyncActions from '../../actions/async';
-//import * as pageActions from '../../actions/page';
+import * as asyncActions from '../../actions/async';
+import * as citiesActions from '../../actions/cities';
 
 class Main extends React.Component {
 
@@ -13,7 +15,23 @@ class Main extends React.Component {
 
 		return(
 			<div className="section__wrap app__wrap">
-				<CurrentLocation mixClass="" />
+				
+				<WeatherInfo 
+					mixClass=""
+					placeInfo={props.currentLocation}  
+				/>
+				
+				<AddCity 
+					mixClass="" 
+					addCity={props.addCity}
+				/>
+				
+				<CitiesList 
+					mixClass="" 
+					citiesList={props.cities.list}
+					deleteCity={props.deleteCity}
+				/>
+
 			</div>
 		);
 	}
@@ -22,11 +40,13 @@ class Main extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => ({
-	//currentLocation: state.currentLocation,
+	currentLocation: state.currentLocation,
+	cities: state.cities,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	//logout: () => dispatch(asyncActions.logout()), 
+	addCity: (cityName) => dispatch(asyncActions.addCity(cityName)), 
+	deleteCity: (index) => dispatch(citiesActions.deleteCity(index)), 
 });
 
 Main.propTypes = {

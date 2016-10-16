@@ -1,9 +1,9 @@
-export const CURRENT_LOCATION_SET_WEATHER = 'CURRENT_LOCATION_SET_WEATHER';
+export const CURRENT_LOCATION_SET_PLACE_INFO = 'CURRENT_LOCATION_SET_PLACE_INFO';
 
-export function setWeather(weather) {
+export function setPlaceInfo(palceInfo) {
 	return {
-		type: CURRENT_LOCATION_SET_WEATHER,
-		payload: weather,
+		type: CURRENT_LOCATION_SET_PLACE_INFO,
+		payload: palceInfo,
 	}
 }
 
