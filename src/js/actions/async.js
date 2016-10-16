@@ -1,7 +1,9 @@
 import { AppOptions } from 'appSettings';
 
-import * as loadingActions 		from '../actions/loading';
-import * as errorActions 		from '../actions/error';
+import * as loadingActions 			from '../actions/loading';
+import * as errorActions 			from '../actions/error';
+import * as currentLocationActions 	from '../actions/currentLocation';
+
 import { getCurrentPosition, getWeatherByCoord, getWeatherByCityName } 	from '../api/api'
 
 
@@ -22,6 +24,7 @@ export function getInitialData() {
 		.then( (weather) => {
 			console.log(weather);
 
+			dispatch(currentLocationActions.setWeather(weather));
 			dispatch(loadingActions.loadingHide());
 
 		})

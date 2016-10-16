@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import CurrentLocation from '../../components/currentLocation/CurrentLocation';
+
 //import * as asyncActions from '../../actions/async';
 //import * as pageActions from '../../actions/page';
 
@@ -8,8 +10,10 @@ class Main extends React.Component {
 
 	render(){
 		const { props } = this;
+
 		return(
 			<div className="section__wrap app__wrap">
+				<CurrentLocation mixClass="" />
 			</div>
 		);
 	}
@@ -18,7 +22,7 @@ class Main extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => ({
-	//profile: state.user.profile,
+	//currentLocation: state.currentLocation,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

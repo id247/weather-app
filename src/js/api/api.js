@@ -26,7 +26,7 @@ export function getCurrentPosition(){
 
 export function getWeatherByCoord(lat, lon){
 
-	const url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + AppOptions.owmKey  ;
+	const url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + AppOptions.owmKey  ;
 	
 	return fetch(url)
 	.then( (response) => response.json() );
