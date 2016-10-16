@@ -1,0 +1,13 @@
+
+
+	</div> <!-- end .container -->
+
+	@@if (devMode === "production"){
+	<script src="assets/js/production.min.js"></script>
+	}
+	@@if (devMode === "development"){	
+	<script src="http://localhost:3000/assets/js/local.js"></script>
+	}
+
+</body>
+</html>
