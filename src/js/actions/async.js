@@ -2,6 +2,7 @@ import { AppOptions } from 'appSettings';
 
 import * as loadingActions 		from '../actions/loading';
 import * as errorActions 		from '../actions/error';
+import { getCurrentPosition, getWeatherByCoord, getWeatherByCityName } 	from '../api/api'
 
 
 //init
@@ -11,17 +12,23 @@ export function getInitialData() {
 	return dispatch => {
 		dispatch(loadingActions.loadingShow());	
 
-		return init()
-		.then( (res) => {	
+		return getCurrentPosition()
+		.then( (position) => {	
 
-			console.log(res);
+			console.log(position);
+
+			return getWeatherByCoord(position.coords.latitude, position.coords.longitude);
+		})
+		.then( (weather) => {
+			console.log(weather);
 
 			dispatch(loadingActions.loadingHide());
 
 		})
 		.catch( err => {			
 			dispatch(loadingActions.loadingHide());
-			dispatch(errorActions.setError(err));
+			console.error(err);
+			dispatch(errorActions.setError(err.message));
 		})
 		;
 	}

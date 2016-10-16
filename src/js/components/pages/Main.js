@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import User from '../../components/user/User';
-
 //import * as asyncActions from '../../actions/async';
 //import * as pageActions from '../../actions/page';
 
@@ -12,7 +10,6 @@ class Main extends React.Component {
 		const { props } = this;
 		return(
 			<div className="section__wrap app__wrap">
-				<User mixClass="app__user" />
 			</div>
 		);
 	}
