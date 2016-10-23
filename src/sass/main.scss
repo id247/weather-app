@@ -17,11 +17,11 @@
  * ========================================================================== */
 
 .section{
-	padding: 80px 0 80px;
+	padding: 30px 0 30px;
 
 	&__wrap{
 		@include clearfix;
-		max-width: 1000px;
+		max-width: 600px;
 		padding: 0 10px;
 		margin: auto;
 	}
@@ -63,6 +63,28 @@
 		z-index: 550;
 	}
 
+	&__title{
+		font-size: 33px;
+		text-align: center;
+		margin: 0 0 10px;
+	}
+
+	&__page{
+
+	}
+
+	&__block{
+		margin: 0 0 10px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}
+
+.app-block{
+	background: #fff;
+	padding: 20px;
+	border-radius: 3px;
 }
 
 /* weather-info */
@@ -70,16 +92,83 @@
 .weather-info{
 
 	&__title{
-		margin: 0 0 1em;
+		margin: 0 0 .5em;
 		font-size: 30px;
 	}
+
+	&__list{
+		
+	}
+
+	&__item{
+		margin: 0 0 .5em;
+		min-height: 30px;
+		line-height: 30px;
+	}
+
+	&__icon{
+		vertical-align: middle;
+		width: 30px;
+		height: 30px;
+	}
+}
+
+/* add-city */
+
+.add-city{
+
+	&__title{
+		font-size: 18px;
+		margin: 0 0 10px;
+	}
+
+	&__form{
+		@include clearfix;
+	}
+
+	&__input-placeholder{
+		float: left;
+		width: 70%;
+	}
+
+	&__button-placeholder{
+		float: right;
+		width: 25%;
+	}
+
+	&__input{
+		height: 35px;
+		line-height: 35px;
+	}
+
+	&__button{
+		height: 35px;
+		width: 100%;
+	}
+
+
+}
+
+/* cities-list */
+
+.cities-list{
 
 	&__list{
 
 	}
 
 	&__item{
-		margin: 0 0 .5em;
+		margin: 0 0 25px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+
+	&__delete{
+		float: right;
+		margin: 7px 0 0 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
 

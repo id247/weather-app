@@ -14,20 +14,20 @@ class Main extends React.Component {
 		const { props } = this;
 
 		return(
-			<div className="section__wrap app__wrap">
+			<div className="app__page">
 				
 				<WeatherInfo 
-					mixClass=""
+					mixClass="app__block app-block"
 					placeInfo={props.currentLocation}  
 				/>
 				
 				<AddCity 
-					mixClass="" 
+					mixClass="app__block app-block" 
 					addCity={props.addCity}
 				/>
 				
 				<CitiesList 
-					mixClass="" 
+					mixClass="app__block app-block" 
 					citiesList={props.cities.list}
 					deleteCity={props.deleteCity}
 				/>
@@ -46,7 +46,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	addCity: (cityName) => dispatch(asyncActions.addCity(cityName)), 
-	deleteCity: (index) => dispatch(citiesActions.deleteCity(index)), 
+	deleteCity: (cityId) => dispatch(citiesActions.deleteCity(cityId)), 
 });
 
 Main.propTypes = {

@@ -24,6 +24,17 @@ export function getCurrentPosition(){
 
 }
 
+function checkIfError(json){
+	console.log(json);
+	if (json.cod && json.cod !== 200){
+		const message = json.message 
+			? json.cod + ' ' + json.message 
+			: json.cod + ' Unknown error';
+		throw new Error(message);
+	}
+	return json;
+}
+
 export function getWeatherByCoord(lat, lon){
 
 	const url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + AppOptions.owmKey  ;
@@ -31,7 +42,9 @@ export function getWeatherByCoord(lat, lon){
 	return fetch(url, {
 		//mode: 'no-cors',
 	})
-	.then( (response) => response.json() );
+	.then( (response) => response.json() )
+	.then( checkIfError )
+	;
 }
 
 
@@ -42,7 +55,9 @@ export function getWeatherByCityName(cityName){
 	return fetch(url, {
 		//mode: 'no-cors',
 	})
-	.then( (response) => response.json() );
+	.then( (response) => response.json() )
+	.then( checkIfError )
+	;
 }
 
 export function getWeatherByCityIds(cityIds){
@@ -56,5 +71,7 @@ export function getWeatherByCityIds(cityIds){
 	return fetch(url, {
 		//mode: 'no-cors',
 	})
-	.then( (response) => response.json() );
+	.then( (response) => response.json() )
+	.then( checkIfError )
+	;
 }

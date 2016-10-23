@@ -4,19 +4,22 @@ class WeatherInfo extends React.Component {
 
 	render(){
 		const { props } = this;
+		const { placeInfo } = props;
 
-		if (!props.placeInfo.name){
+		if (!placeInfo.id){
 			return null;
 		}
 
+		const weather = placeInfo.weather[0];
+
 		return(
-			<div className={  (props.mixClass ? props.mixClass : '') + 'weather-info'}>
+			<div className={  (props.mixClass ? props.mixClass : '') + ' weather-info'}>
 
 				<h3 className="weather-info__title">
 					{
-						props.placeInfo.labelCityName 
-						? props.placeInfo.labelCityName 
-						: props.placeInfo.name
+						placeInfo.labelCityName 
+						? placeInfo.labelCityName 
+						: placeInfo.name
 					}
 				</h3>
 
@@ -24,19 +27,39 @@ class WeatherInfo extends React.Component {
 
 					<li className="weather-info__item">
 
-						Температура: {props.placeInfo.main.temp} C&deg;
+						{weather.main} 
+						{' '}
+						({weather.description})
+						{' '}
+						<img 
+							src={'http://openweathermap.org/img/w/' + weather.icon + '.png'} 
+							alt="" 
+							className="weather-info__icon"
+						/>
 
 					</li>
 
 					<li className="weather-info__item">
 
-						Давление: {props.placeInfo.main.pressure} мм рт. ст.
+						Temperature: {placeInfo.main.temp} C&deg;
 
 					</li>
 
 					<li className="weather-info__item">
 
-						Влажность: {props.placeInfo.main.humidity}%
+						Wind speed: {placeInfo.wind.speed} m/s
+
+					</li>
+
+					<li className="weather-info__item">
+
+						Pressure: {placeInfo.main.pressure} bar.
+
+					</li>
+
+					<li className="weather-info__item">
+
+						Humidity: {placeInfo.main.humidity}%
 
 					</li>
 

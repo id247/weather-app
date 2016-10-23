@@ -6,35 +6,40 @@ import WeatherInfo 	from '../../components/weatherInfo/WeatherInfo';
 
 class CitiesList extends React.Component {
 
-	_deleteCity(index){
-		this.props.deleteCity(index);
+	_deleteCity(cityId){
+		this.props.deleteCity(cityId);
 	}
 
-	_deleteCityHandler = (index) => (e) => {
+	_deleteCityHandler = (cityId) => (e) => {
 		e.preventDefault();
 
-		this._deleteCity(index);
+		this._deleteCity(cityId);
 	}
 
 	render(){
 		const { props } = this;
 
+		if (props.citiesList.length === 0){
+			return null;
+		}
+
 		return(
-			<div className={  (props.mixClass ? props.mixClass : '') + 'cities-list'}>
+			<div className={  (props.mixClass ? props.mixClass : '') + ' cities-list'}>
 
 				<ul className="cities-list__list">
 				
-				{props.citiesList.map( (city, i) => (
+				{props.citiesList.slice(0).reverse().map( (city, i) => (
 
 					<li className="cities-list__item" key={i + '-' + city.id}>
 						
 						<Button 
+							mixClass="cities-list__delete"
 							type="button"
 							size="m"
 							color="blue"
-							onClickHandler={this._deleteCityHandler(i)}
+							onClickHandler={this._deleteCityHandler(city.id)}
 						>
-							Удалить {i}
+							&times; Delete
 						</Button>
 
 						<WeatherInfo 

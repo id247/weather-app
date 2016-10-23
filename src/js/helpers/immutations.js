@@ -2,6 +2,10 @@ export function addToArray(array, value){
 	return [...array, value];
 }
 
+export function addArrayToArray(array, newArray){
+	return [...array, ...newArray];
+}
+
 export function deletFromArray(array, index){
 	return [
 			...array.slice(0, index),

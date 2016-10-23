@@ -10,6 +10,7 @@ const Input = (props) => (
 		type={(props.type ? props.type : 'text')}  
 		name={props.name} 
 		value={props.value} 
+		placeholder={props.placeholder} 
 		onChange={props.onChangeHandler}
 	/>
 );
@@ -17,6 +18,7 @@ const Input = (props) => (
 Input.propTypes = {
 	mixClass: React.PropTypes.string,
 	value: React.PropTypes.string,
+	placeholder: React.PropTypes.string,
 	onChangeHandler: React.PropTypes.func,
 
 	type: React.PropTypes.string,

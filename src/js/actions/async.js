@@ -10,6 +10,18 @@ import { getFromLocalStorage }	from '../helpers/localStorage';
 import * as api	from '../api/api'
 
 
+export function catchError(err){
+
+	return dispatch => {
+		console.error(err);
+		dispatch(errorActions.setError(err.message));
+
+		setTimeout( ()=> {
+			dispatch(errorActions.setError(''));
+		}, 3000);	
+	}
+}
+
 //cities
 
 export function addCity(cityName) {
@@ -43,10 +55,11 @@ export function addCity(cityName) {
 
 			dispatch(loadingActions.loadingHide());
 		})
-		.catch( err => {			
+		.catch( err => {
+			dispatch(catchError(err));
+		})
+		.then( (position) => {	
 			dispatch(loadingActions.loadingHide());
-			console.error(err);
-			dispatch(errorActions.setError(err.message));
 		})
 		;
 	}
@@ -76,7 +89,14 @@ export function getCurrentPosition() {
 		})
 		.then( (placeInfo) => {
 			console.log(placeInfo);
-			dispatch(currentLocationActions.setPlaceInfo(placeInfo));	
+			
+			const city = {
+				...placeInfo,
+				...{
+					labelCityName: 'Your current location'
+				}
+			};
+			dispatch(currentLocationActions.setPlaceInfo(city));	
 		})
 		;
 
@@ -98,7 +118,18 @@ export function getSavedCities() {
 
 		return api.getWeatherByCityIds(citiesIds)
 		.then( (placeInfos) => {
-			console.log(placeInfos);
+			console.log(placeInfos.list);
+
+			const cities = savedCities.list.map( city => {
+				return {
+					...city,
+					...placeInfos.list.filter( item => item.id === city.id ),
+				}
+			});
+
+			console.log(cities);
+
+			dispatch(citiesActions.replaceCities(cities));	
 		})
 		;
 	}
@@ -115,11 +146,10 @@ export function getInitialData() {
 			dispatch(getCurrentPosition()),
 			dispatch(getSavedCities()),
 		])
-		.catch( err => {			
-			console.error(err);
-			dispatch(errorActions.setError(err.message));
+		.catch( err => {
+			dispatch(catchError(err));
 		})
-		.then( (position) => {	
+		.then( () => {	
 			dispatch(loadingActions.loadingHide());
 		})
 		;
