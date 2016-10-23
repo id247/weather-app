@@ -5,7 +5,9 @@ import * as errorActions 			from '../actions/error';
 import * as currentLocationActions 	from '../actions/currentLocation';
 import * as citiesActions			from '../actions/cities';
 
-import { getCurrentPosition, getWeatherByCoord, getWeatherByCityName } 	from '../api/api'
+import { getFromLocalStorage }	from '../helpers/localStorage';
+
+import * as api	from '../api/api'
 
 
 //cities
@@ -22,7 +24,7 @@ export function addCity(cityName) {
 
 		dispatch(loadingActions.loadingShow());	
 
-		return getWeatherByCityName(cityName)
+		return api.getWeatherByCityName(cityName)
 		.then( (placeInfo) => {	
 
 			if (!placeInfo.id){
@@ -50,6 +52,58 @@ export function addCity(cityName) {
 	}
 }
 
+export function getCitiesByIds(citiesIds){
+	
+	return dispatch => {
+		dispatch(loadingActions.loadingShow());	
+
+
+		return api.getWeatherByCityIds(citiesIds)
+		.then( placeInfos => {
+			console.log(placeInfos);
+		})
+		;
+	}
+}
+
+
+export function getCurrentPosition() {
+	return dispatch => {
+
+		return api.getCurrentPosition()
+		.then( (position) => {	
+			return api.getWeatherByCoord(position.coords.latitude, position.coords.longitude);
+		})
+		.then( (placeInfo) => {
+			console.log(placeInfo);
+			dispatch(currentLocationActions.setPlaceInfo(placeInfo));	
+		})
+		;
+
+	}
+}
+
+export function getSavedCities() {
+	return (dispatch, getState) => {
+
+		const savedCities = getState().cities;
+
+		console.log(savedCities);
+		
+		if (!savedCities || !savedCities.list || savedCities.list.length === 0){				
+			return Promise.resolve();
+		}
+
+		const citiesIds = savedCities.list.map( city => city.id );
+
+		return api.getWeatherByCityIds(citiesIds)
+		.then( (placeInfos) => {
+			console.log(placeInfos);
+		})
+		;
+	}
+}
+
 // inits
 
 export function getInitialData() {
@@ -57,20 +111,16 @@ export function getInitialData() {
 	return dispatch => {
 		dispatch(loadingActions.loadingShow());	
 
-		return getCurrentPosition()
-		.then( (position) => {	
-			return getWeatherByCoord(position.coords.latitude, position.coords.longitude);
-		})
-		.then( (placeInfo) => {
-			console.log(placeInfo);
-
-			dispatch(currentLocationActions.setPlaceInfo(placeInfo));
-			dispatch(loadingActions.loadingHide());
-		})
+		return Promise.all([
+			dispatch(getCurrentPosition()),
+			dispatch(getSavedCities()),
+		])
 		.catch( err => {			
-			dispatch(loadingActions.loadingHide());
 			console.error(err);
 			dispatch(errorActions.setError(err.message));
+		})
+		.then( (position) => {	
+			dispatch(loadingActions.loadingHide());
 		})
 		;
 	}
