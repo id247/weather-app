@@ -32,7 +32,8 @@ export function addCity(cityName) {
 
 		const citiesList = getState().cities.list;
 
-		if (citiesList.filter( city => city.labelCityName === cityName ).length > 0){
+		if (citiesList.findIndex( city => city.labelCityName === cityName ) > -1){
+			dispatch(catchError( new Error('The city is added already') ));
 			return;
 		}
 
@@ -41,9 +42,8 @@ export function addCity(cityName) {
 		return api.getWeatherByCityName(cityName)
 		.then( (placeInfo) => {	
 
-			if (!placeInfo.id){
-				dispatch(errorActions.setError('Can not find the city'));
-				return;
+			if (citiesList.findIndex( city => city.id === placeInfo.id ) > -1){
+				throw new Error('The city is added already');
 			}
 
 			const city = {
