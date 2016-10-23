@@ -25,7 +25,7 @@ export function getCurrentPosition(){
 }
 
 function checkIfError(json){
-	console.log(json);
+
 	if (json.cod && json.cod !== 200){
 		const message = json.message 
 			? json.cod + ' ' + json.message 
@@ -35,12 +35,13 @@ function checkIfError(json){
 	return json;
 }
 
+const apiUrl = 'http://api.openweathermap.org/data/2.5/';
+
 export function getWeatherByCoord(lat, lon){
 
-	const url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + AppOptions.owmKey  ;
+	const url = apiUrl + 'weather?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + AppOptions.owmKey  ;
 	
 	return fetch(url, {
-		//mode: 'no-cors',
 	})
 	.then( (response) => response.json() )
 	.then( checkIfError )
@@ -50,10 +51,9 @@ export function getWeatherByCoord(lat, lon){
 
 export function getWeatherByCityName(cityName){
 
-	const url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric&appid=' + AppOptions.owmKey  ;
+	const url = apiUrl + 'weather?q=' + cityName + '&units=metric&appid=' + AppOptions.owmKey  ;
 	
 	return fetch(url, {
-		//mode: 'no-cors',
 	})
 	.then( (response) => response.json() )
 	.then( checkIfError )
@@ -66,10 +66,9 @@ export function getWeatherByCityIds(cityIds){
 		throw new Error('ids array id empty');
 	}
 
-	const url = 'http://api.openweathermap.org/data/2.5/group?id=' + cityIds.join(',') + '&units=metric&appid=' + AppOptions.owmKey  ;
+	const url = apiUrl + 'group?id=' + cityIds.join(',') + '&units=metric&appid=' + AppOptions.owmKey  ;
 	
 	return fetch(url, {
-		//mode: 'no-cors',
 	})
 	.then( (response) => response.json() )
 	.then( checkIfError )

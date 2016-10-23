@@ -10,6 +10,8 @@ import { getFromLocalStorage }	from '../helpers/localStorage';
 import * as api	from '../api/api'
 
 
+//error catching
+
 export function catchError(err){
 
 	return dispatch => {
@@ -80,29 +82,6 @@ export function getCitiesByIds(citiesIds){
 }
 
 
-export function getCurrentPosition() {
-	return dispatch => {
-
-		return api.getCurrentPosition()
-		.then( (position) => {	
-			return api.getWeatherByCoord(position.coords.latitude, position.coords.longitude);
-		})
-		.then( (placeInfo) => {
-			console.log(placeInfo);
-			
-			const city = {
-				...placeInfo,
-				...{
-					labelCityName: 'Your current location'
-				}
-			};
-			dispatch(currentLocationActions.setPlaceInfo(city));	
-		})
-		;
-
-	}
-}
-
 export function getSavedCities() {
 	return (dispatch, getState) => {
 
@@ -132,6 +111,31 @@ export function getSavedCities() {
 			dispatch(citiesActions.replaceCities(cities));	
 		})
 		;
+	}
+}
+
+//location by coords
+
+export function getCurrentPosition() {
+	return dispatch => {
+
+		return api.getCurrentPosition()
+		.then( (position) => {	
+			return api.getWeatherByCoord(position.coords.latitude, position.coords.longitude);
+		})
+		.then( (placeInfo) => {
+			console.log(placeInfo);
+			
+			const city = {
+				...placeInfo,
+				...{
+					labelCityName: 'Your current location'
+				}
+			};
+			dispatch(currentLocationActions.setPlaceInfo(city));	
+		})
+		;
+
 	}
 }
 

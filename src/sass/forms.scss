@@ -1,7 +1,6 @@
 @charset "UTF-8";
-/* ==========================================================================
-* button
-* ========================================================================== */
+
+/* button */
 
 .button{
 	display: inline-block;
@@ -72,85 +71,6 @@
 
 }
 
-/* ==========================================================================
-* form
-* ========================================================================== */
-
-.form{
-
-	@include clearfix;
-
-	&__line{
-		@include clearfix;
-		margin-bottom: 16px;
-	}
-
-	&__input-placeholder{
-		position: relative;
-		margin-bottom: 16px;
-
-		&--inline{
-			width: 48%;
-			float: right;
-			margin-bottom: 0;
-			&:first-child{
-				float: left;
-			}
-		}
-	}
-
-	label.error{
-		font-size: 13px;
-		color: #ef6d51;
-		//position: absolute;
-		//top: -13px;
-		//right: 0;
-		//margin-left: 0;
-		//padding: 5px;
-		//text-align: center;
-		//white-space: nowrap;
-		///color: #fff;
-		///border-radius: 5px;
-		//background: #000;
-		//background: rgba(0, 0, 0, .7);
-	}
-
-	&__button-placeholder{
-		margin-top: 20px;
-	}
-
-	&__input,
-	&__textarea{
-		-webkit-appearance: none;
-		padding: 0 0 0 20px;
-		width: 100%;
-		outline: none;
-		border: 1px solid #d7d7d7;
-		max-width: 100%;
-		font-size: 15px;
-		font-family: $mainFontFamily;
-		background: #f6f5f1;
-		border-radius: 5px;
-		box-shadow: inset 0 2px 3px rgba(0,0,0,.13); 
-		&.error{
-			border-color: #ef6d51;
-		}
-	}
-	&__input{
-		&--h40{
-			height: 40px;
-			line-height: 40px;
-		}
-	}
-	&__textarea{
-		padding-top: 10px;
-		height: 210px;
-		&--h120{
-			height: 120px;
-		}
-	}
-}
-
 /* input */
 
 .input{
@@ -170,9 +90,7 @@
 	}
 }
 
-/* ==========================================================================
- * checkbox
- * ========================================================================== */
+/* checkbox */
 
 .checkbox{
 	display: inline-block;

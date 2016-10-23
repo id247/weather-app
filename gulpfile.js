@@ -114,7 +114,7 @@ gulp.task('server', function () {
 	.pipe($.serverLivereload({
 		livereload: true,
 		directoryListing: false,
-		open: false,
+		open: true,
 		port: 9000
 	}));
 	
